@@ -72,4 +72,34 @@ a = """
       -  |  O  |  -  
          |     |
          """
-print(a)
+# print(a)
+a0 = '  -  '
+b0 = '|  -  |'
+c0 = '  -  '
+divide = '_____|_____|_____'
+margin = '     |     |     '
+a1 = '  -  '
+b1 = '|  -  |'
+c1 = '  -  '
+
+a2 = '  -  '
+b2 = '|  -  |'
+c2 = '  -  '
+print(margin)
+print(f'{a0}{b0}{c0}')
+print(divide)
+print(margin)
+print(f'{a1}{b1}{c1}')
+print(divide)
+print(margin)
+print(f'{a2}{b2}{c2}')
+print(margin)
+
+
+
+
+
+if '-' in a0:
+    print('yes')
+else:
+    print('no')
