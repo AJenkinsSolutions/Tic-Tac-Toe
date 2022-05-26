@@ -34,7 +34,7 @@ def main():
         def __init__(self):
             #Class Attributes
             self.rows = {
-                'a0': '  x  ', 'b0': '|  -  |', 'c0': '  -  ',
+                'a0': '  -  ', 'b0': '|  -  |', 'c0': '  -  ',
 
                 'a1': '  -  ', 'b1': '|  -  |', 'c1': '  -  ',
 
@@ -72,22 +72,28 @@ def main():
                 print('Debug:position occupied')
                 return False
 
+        def place_pawn(self, pos, pawn):
+            self.rows[pos] = self.rows[pos].replace('-', pawn)
+            return  #display grid ?
+
+
     grid = Grid()
     grid.display_grid()
-
+    # player pawns
     p1_pawn = 'X'
     p2_pawn = '0'
+
+    # some form of user inpout
     usr_pos = 'a0'
     print(grid.position_avaiable(pos=usr_pos))
+    grid.place_pawn(usr_pos, p1_pawn)
+    grid.display_grid()
 
 
 
 
 
-
-    # if '-' in grid.a0:
-    #     grid.a0 = grid.a0.replace('-', 'X')
-
+    #
 
 
 
