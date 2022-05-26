@@ -75,7 +75,6 @@ def main():
             self.rows[pos] = self.rows[pos].replace('-', pawn)
             return  #display grid ?
 
-
         def calculate_win(self, pawn):
             """
             :param pawn: player pawn
@@ -91,7 +90,6 @@ def main():
                 print('No winning moves')
                 return False
 
-
         def horizontal_win(self,pawn):
             """
             Condition 1: players pawn in the middle row(top,middle, bottom)>> else no horizontal win
@@ -103,7 +101,7 @@ def main():
             if pawn in self.rows['b0']:
                 print('in top middle true ')
                 #now check outter edges
-                if pawn in self.rows['a0'] and self.rows['c0']:
+                if pawn in self.rows['a0'] and pawn in  self.rows['c0']:
                     print('out edges true ')
                     print('horizontal win top row')
                     return True
@@ -114,7 +112,7 @@ def main():
             elif pawn in self.rows['b1']:
                 print('in middle middle true ')
                 #now check outter edges
-                if pawn in self.rows['a1'] and self.rows['c1']:
+                if pawn in self.rows['a1'] and pawn in self.rows['c1']:
                     print('out edges true ')
                     print('horizontal win middle row')
                     return True
@@ -125,7 +123,7 @@ def main():
             elif pawn in self.rows['b2']:
                 print('in bottom middle true ')
                 #now check outter edges
-                if pawn in self.rows['a2'] and self.rows['c2']:
+                if pawn in self.rows['a2'] and pawn in self.rows['c2']:
                     print('out edges true ')
                     print('horizontal win bottom row')
                     return True
@@ -151,7 +149,7 @@ def main():
             #check middle position across board
             if pawn in self.rows['a1']:
                 print('in col a  middle true ')
-                if pawn in self.rows['a0'] and self.rows['a2']:
+                if pawn in self.rows['a0'] and pawn in self.rows['a2']:
                     print('top and bottom edges true')
                     print('Vertical win true ')
                     return True
@@ -160,7 +158,7 @@ def main():
                     return False
             elif pawn in self.rows['b1']:
                 print('in col b  middle true ')
-                if pawn in self.rows['b0'] and self.rows['b2']:
+                if pawn in self.rows['b0'] and pawn in self.rows['b2']:
                     print('top and bottom edges true')
                     print('Vertical win true ')
                     return True
@@ -169,7 +167,7 @@ def main():
                     return False
             elif pawn in self.rows['c1']:
                 print('in col c  middle true ')
-                if pawn in self.rows['c0'] and self.rows['c2']:
+                if pawn in self.rows['c0'] and pawn in self.rows['c2']:
                     print('top and bottom edges true')
                     print('Vertical win true ')
                     return True
@@ -191,10 +189,10 @@ def main():
             if pawn in self.rows['b1']:
                 print('pawn in center box')
                 #Left to right diagonal
-                if pawn in self.rows['a0'] and self.rows['c2']:
+                if pawn in self.rows['a0'] and pawn in self.rows['c2']:
                     print('Diagonal winner left to right')
                     return True
-                elif pawn in self.rows['c0'] and self.rows['a2']:
+                elif pawn in self.rows['c0'] and pawn in self.rows['a2']:
                     print('Diagonal winner right to left')
                     return True
                 else:
@@ -206,29 +204,18 @@ def main():
                 return False
 
 
-
-
-
-
-
-
-
-
-
-
-
     class Player:
         def __init__(self):
             self.active = None
             self.pawn = None
             self.position_selection = None
+            self.winner = None
 
         def activate(self):
             self.active = True
 
         def deactivate(self):
             self.active = False
-
 
     grid = Grid()
     # player pawns
@@ -237,6 +224,9 @@ def main():
     # some form of user inpout
     usr_pos = 'a0'
     game_on = True
+
+    round = 0
+    print('round', round)
 
     player1 = Player()
     player1.pawn = 'X'
@@ -247,42 +237,52 @@ def main():
     #Welcome message
     print('Welcome to TIC TAC TOE')
 
-    round = 0
-    print('round', round)
+    while game_on:
+        print('round',round)
 
-    if round % 2 == 0:
-        player1.active = True
-        player2.active = False
-        print('player1', player1.active, player1.pawn)
-        print('player2', player2.active, player2.pawn)
-        grid.display_grid()
-        player1.position_selection = input('please select a box').lower()
+        if round % 2 == 0:
+            player1.active = True
+            player2.active = False
+            grid.display_grid()
+            player1.position_selection = input('please select a box').lower()
+            #check if position ok
+            if grid.position_avaiable(pos=player1.position_selection):
+                # place pawn
+                grid.place_pawn(player1.position_selection, player1.pawn)
+                #show players the grid
+                grid.display_grid()
+                # see if move results in win
+                if grid.calculate_win(player1.pawn):
+                    player1.winner = True
+                    print('Winner PLAYER 1')
+                    game_on = False
+                else:
+                    round += 1
+                    # return to main loop
 
-        if grid.position_avaiable(pos=player1.position_selection):
 
-            grid.place_pawn(player1.position_selection, player1.pawn)
 
-            grid.calculate_win(player1.pawn)
+        else:
+            print('round', round)
+            player2.active = True
+            player1.active = False
             grid.display_grid()
 
-    else:
-        player2.active = True
-        player1.active = False
-        print('player2', player2.active, player2.pawn)
-        print('player1', player1.active, player1.pawn)
-
-
-
-
-
-    # if grid.position_avaiable(pos=position_selection):
-    #
-    #     grid.place_pawn(usr_pos, p1_pawn)
-    # grid.display_grid()
-
-
-
-
+            player2.position_selection = input('please select a box').lower()
+            # check if position ok
+            if grid.position_avaiable(pos=player2.position_selection):
+                # place pawn
+                grid.place_pawn(player2.position_selection, player2.pawn)
+                # show players the grid
+                grid.display_grid()
+                # see if move results in win
+                if grid.calculate_win(player2.pawn):
+                    player2.winner = True
+                    print('Winner PLAYER 1')
+                    game_on = False
+                else:
+                    round += 1
+                    # return to main loop
 
 if __name__ == "__main__":
     main()
