@@ -77,7 +77,9 @@ def main():
 
 
         def calculate_win(self, pawn):
-            if self.horizontal_win(pawn):
+            # if self.horizontal_win(pawn):
+            #     return True
+            if self.vertical_win(pawn):
                 return True
 
 
@@ -126,6 +128,54 @@ def main():
             else:
                 print('Debug: No horizontal win')
                 return False
+
+        def vertical_win(self, pawn):
+            """
+            Condition 1: Player pawn must be present within the middle box of columns (a,b,c)
+            example a1, b1, c1>> if not no vertical win is possible
+            Condition 2: player pawn must be present at either verticle side of middle box
+            example pawn at 'a1'>>> pawns must be present at 'a0' and a2>> if not no vertical win is possible
+
+
+            :param pawn: player pawn
+            :return: True or False
+            """
+            #check middle position across board
+            if pawn in self.rows['a1']:
+                print('in col a  middle true ')
+                if pawn in self.rows['a0'] and self.rows['a2']:
+                    print('top and bottom edges true')
+                    print('Vertical win true ')
+                    return True
+                else:
+                    print('No veritcal win')
+                    return False
+            elif pawn in self.rows['b1']:
+                print('in col b  middle true ')
+                if pawn in self.rows['b0'] and self.rows['b2']:
+                    print('top and bottom edges true')
+                    print('Vertical win true ')
+                    return True
+                else:
+                    print('No veritcal win')
+                    return False
+            elif pawn in self.rows['c1']:
+                print('in col c  middle true ')
+                if pawn in self.rows['c0'] and self.rows['c2']:
+                    print('top and bottom edges true')
+                    print('Vertical win true ')
+                    return True
+                else:
+                    print('No veritcal win')
+                    return False
+            else:
+                print('Debug: No Vertical win')
+                return False
+
+
+
+
+
 
 
 
