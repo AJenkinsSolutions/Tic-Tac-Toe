@@ -78,16 +78,18 @@ def main():
 
         def calculate_win(self, pawn):
             """
-
             :param pawn: player pawn
             :return: True or false
             """
             if self.horizontal_win(pawn):
                 return True
-            if self.vertical_win(pawn):
+            elif self.vertical_win(pawn):
                 return True
-            if self.diagonal_win(pawn):
+            elif self.diagonal_win(pawn):
                 return True
+            else:
+                print('No winning moves')
+                return False
 
 
         def horizontal_win(self,pawn):
