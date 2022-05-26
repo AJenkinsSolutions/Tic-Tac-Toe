@@ -77,15 +77,21 @@ def main():
 
 
         def calculate_win(self, pawn):
-            # if self.horizontal_win(pawn):
-            #     return True
+            """
+
+            :param pawn: player pawn
+            :return: True or false
+            """
+            if self.horizontal_win(pawn):
+                return True
             if self.vertical_win(pawn):
+                return True
+            if self.diagonal_win(pawn):
                 return True
 
 
         def horizontal_win(self,pawn):
             """
-            takes current players pawn as input
             Condition 1: players pawn in the middle row(top,middle, bottom)>> else no horizontal win
             Conditon 2: players pawn in both adjcent position from pervious middle>> else no horizontal win
             :param pawn: current players pawn type. 'X' or 'O'
@@ -171,6 +177,33 @@ def main():
             else:
                 print('Debug: No Vertical win')
                 return False
+
+        def diagonal_win(self, pawn):
+            """
+            Condition 1: player pawn must be present is middle box for any diagonal win:>>> if not return false
+            Conditon 2: player pawns must be present diagonal adjcent to middle boz to win: >>> if not return false
+            :param pawn: player pawn
+            :return: True or False
+            """
+            # pawn in center box
+            if pawn in self.rows['b1']:
+                print('pawn in center box')
+                #Left to right diagonal
+                if pawn in self.rows['a0'] and self.rows['c2']:
+                    print('Diagonal winner left to right')
+                    return True
+                elif pawn in self.rows['c0'] and self.rows['a2']:
+                    print('Diagonal winner right to left')
+                    return True
+                else:
+                    print('no diagonal winner')
+                    return False
+
+            else:
+                print('No diagonal Win')
+                return False
+
+
 
 
 
