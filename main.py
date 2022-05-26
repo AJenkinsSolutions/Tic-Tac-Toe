@@ -34,7 +34,7 @@ def main():
         def __init__(self):
             #Class Attributes
             self.rows = {
-                'a0': '  -  ', 'b0': '|  -  |', 'c0': '  -  ',
+                'a0': '  x  ', 'b0': '|  -  |', 'c0': '  -  ',
 
                 'a1': '  -  ', 'b1': '|  -  |', 'c1': '  -  ',
 
@@ -58,21 +58,31 @@ def main():
             print(f'{self.rows["a2"]}{self.rows["b2"]}{self.rows["c2"]}')
             print(self.margin)
 
+        def position_avaiable(self, pos):
+            """
+            If '-' is in selected position>> then position is available.
+            If !'-' position is unavailable/ occupied.
+            :param pos: User input. for desired pawn placement
+            :return: True or False
+            """
+            if '-' in grid.rows[pos]:
+                print('Debug:position available ')
+                return True
+            else:
+                print('Debug:position occupied')
+                return False
+
     grid = Grid()
     grid.display_grid()
 
     p1_pawn = 'X'
     p2_pawn = '0'
-    pos = 'a0'
+    usr_pos = 'a0'
+    print(grid.position_avaiable(pos=usr_pos))
 
-    # print(grid.rows[pos])
-    #
-    # def check_position(pos):
-    #     if '-' in grid.rows[pos]:
-    #         print('yes')
-    #
-    #
-    # check_position(pos)
+
+
+
 
 
     # if '-' in grid.a0:
