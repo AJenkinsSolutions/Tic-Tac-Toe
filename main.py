@@ -32,38 +32,52 @@ def main():
         #Instance Methods
 
         def __init__(self):
-            #row 0
-            self.a0 = '  -  '
-            self.b0 = '|  -  |'
-            self.c0 = '  -  '
-            #row 1
-            self.a1 = '  -  '
-            self.b1 = '|  -  |'
-            self.c1 = '  -  '
-            #row 2
-            self.a2 = '  -  '
-            self.b2 = '|  -  |'
-            self.c2 = '  -  '
+            #Class Attributes
+            self.rows = {
+                'a0': '  -  ', 'b0': '|  -  |', 'c0': '  -  ',
+
+                'a1': '  -  ', 'b1': '|  -  |', 'c1': '  -  ',
+
+                'a2': '  -  ', 'b2': '|  -  |', 'c2': '  -  '
+            }
 
         #Instance Method
 
         def display_grid(self):
-
+            """
+            Displays the repersentation of the current grid
+            :return: Nothing
+            """
             print(self.margin)
-            print(f'{self.a0}{self.b0}{self.c0}')
+            print(f'{self.rows["a0"]}{self.rows["b0"]}{self.rows["c0"]}')
             print(self.divide)
             print(self.margin)
-            print(f'{self.a1}{self.b1}{self.c1}')
+            print(f'{self.rows["a1"]}{self.rows["b1"]}{self.rows["c1"]}')
             print(self.divide)
             print(self.margin)
-            print(f'{self.a2}{self.b2}{self.c2}')
+            print(f'{self.rows["a2"]}{self.rows["b2"]}{self.rows["c2"]}')
             print(self.margin)
 
     grid = Grid()
     grid.display_grid()
 
+    p1_pawn = 'X'
+    p2_pawn = '0'
+    pos = 'a0'
+
+    # print(grid.rows[pos])
+    #
+    # def check_position(pos):
+    #     if '-' in grid.rows[pos]:
+    #         print('yes')
+    #
+    #
+    # check_position(pos)
+
+
     # if '-' in grid.a0:
     #     grid.a0 = grid.a0.replace('-', 'X')
+
 
 
 
