@@ -213,74 +213,80 @@ def main():
     player2 = Player()
     player2.pawn = 'O'
 
-    # Welcome message
-    print('Welcome to TIC TAC TOE')
+    while game_menu_on:
+        # Welcome message
+        print('Welcome to TIC TAC TOE')
+        while game_on and picks <9:
+            if picks % 2 == 0:
 
-    while game_on and picks <9:
-        if picks % 2 == 0:
-
-            print('Picks:', picks)
-            print('Player 1')
-            # player1.active = True
-            # player2.active = False
-            grid.display_grid()
-            answer_good = False
-            while not answer_good:
-            # Get player input
-                choice = input('Please select a box').lower().strip()
-                print(choice)
-                if len(choice) == 2:
-                    if choice[0] not in alpha or choice[1] not in numberic:
+                print('Picks:', picks)
+                print('Player 1')
+                # player1.active = True
+                # player2.active = False
+                grid.display_grid()
+                answer_good = False
+                while not answer_good:
+                # Get player input
+                    choice = input('Please select a box').lower().strip()
+                    print(choice)
+                    if len(choice) == 2:
+                        if choice[0] not in alpha or choice[1] not in numberic:
+                            answer_good = False
+                            print('Invalid Input: only a,b,c and 0, 1, 2')
+                        else:
+                            answer_good = True
+                    elif len(choice) < 2:
                         answer_good = False
-                        print('Invalid Input: only a,b,c and 0, 1, 2')
+                        print('To Short: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
+                    elif len (choice) > 2:
+                        answer_good = False
+                        print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
+
+
+                player1.pos_selection = choice
+
+                # Check if position available
+                if grid.pos_available(pos=player1.pos_selection):
+                    # Place pawn
+                    grid.place_pawn(player1.pos_selection, player1.pawn)
+                    # Show updated grid
+                    # Move result in win ?
+                    if grid.calculate_win(player1.pawn):
+                        # Update winner
+                        player1.winner = True
+                        grid.winner = 'Player 1'
+                        # Update Game Status
+                        game_on = False
                     else:
-                        answer_good = True
-                elif len(choice) < 2:
-                    answer_good = False
-                    print('To Short: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
-                elif len (choice) > 2:
-                    answer_good = False
-                    print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
+                        picks += 1
+                        # return to main loop
 
-
-            player1.pos_selection = choice
-
-            # Check if position available
-            if grid.pos_available(pos=player1.pos_selection):
-                # Place pawn
-                grid.place_pawn(player1.pos_selection, player1.pawn)
-                # Show updated grid
-                # Move result in win ?
-                if grid.calculate_win(player1.pawn):
-                    # Update winner
-                    player1.winner = True
-                    grid.winner = 'Player 1'
-                    # Update Game Status
-                    game_on = False
-                else:
-                    picks += 1
-                    # return to main loop
-
+            else:
+                print('Picks:', picks)
+                print('Player 2')
+                # player2.active = True
+                # player1.active = False
+                grid.display_grid()
+                player2.position_selection = input('Please select a box').lower()
+                if grid.pos_available(pos=player2.position_selection):
+                    grid.place_pawn(player2.position_selection, player2.pawn)
+                    if grid.calculate_win(player2.pawn):
+                        player2.winner = True
+                        grid.winner = 'Player 2'
+                        game_on = False
+                    else:
+                        picks += 1
+                        # return to main loop
+        #   Exit messages
+        grid.display_grid()
+        print('Winner', grid.winner)
+        picks = 0
+        play_again = input('Would you like to play again ? y/n').lower()
+        if play_again == 'n':
+            game_menu_on = False
         else:
-            print('Picks:', picks)
-            print('Player 2')
-            # player2.active = True
-            # player1.active = False
-            grid.display_grid()
-            player2.position_selection = input('Please select a box').lower()
-            if grid.pos_available(pos=player2.position_selection):
-                grid.place_pawn(player2.position_selection, player2.pawn)
-                if grid.calculate_win(player2.pawn):
-                    player2.winner = True
-                    grid.winner = 'Player 2'
-                    game_on = False
-                else:
-                    picks += 1
-                    # return to main loop
-    #   Exit messages
-    grid.display_grid()
-    print('Winner', grid.winner)
-
+            game_on = True
+            game_menu_on = True
 
 
 if __name__ == "__main__":
