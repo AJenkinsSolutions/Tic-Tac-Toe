@@ -1,4 +1,5 @@
 def main():
+
     class Grid:
         #   Class Attributes
         #   All grids will have the same margin and divide
@@ -203,42 +204,40 @@ def main():
         def deactivate(self):
             self.active = False
 
-    game_on = True
-    game_menu_on = True
-    picks = 0
 
     alpha = ['a', 'b', 'c']
     numberic = ['0', '1', '2']
 
-
-    # Initialize Players
-    player1 = Player('player1')
-    player1.pawn = 'X'
-
-    player2 = Player('player2')
-    player2.pawn = 'O'
+    game_on = True
+    game_menu_on = True
+    picks = 0
 
     while game_menu_on:
+
         # Initialize Grid
         grid = Grid()
+
+        # Initialize Players
+        player1 = Player('player1')
+        player1.pawn = 'X'
+        player2 = Player('player2')
+        player2.pawn = 'O'
+
         # Welcome message
         print('Welcome to TIC TAC TOE')
         while game_on and picks < 9:
-            if picks % 2 == 0:
-                active_player = player1
-            else:
-                active_player = player2
+            active_player = player1 if picks % 2 == 0 else player2
 
             print('Picks:', picks)
             print(f'{active_player.name}')
-            # player1.active = True
-            # player2.active = False
+
+
             grid.display_grid()
             answer_good = False
+
             while not answer_good:
                 # Get player input
                 choice = input('Please select a box').lower().strip()
-                print(choice)
                 if len(choice) == 2:
                     if choice[0] not in alpha or choice[1] not in numberic:
                         answer_good = False
@@ -252,9 +251,8 @@ def main():
                     answer_good = False
                     print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
 
-
             active_player.pos_selection = choice
-            print(active_player.pos_selection)
+
             # Check if position available
             if grid.pos_available(pos=active_player.pos_selection):
                 # Place pawn
@@ -271,44 +269,6 @@ def main():
                     picks += 1
                     continue
                     # return to main loop
-
-            # else:
-            #     print('Picks:', picks)
-            #     print('Player 2')
-            #     # player2.active = True
-            #     # player1.active = False
-            #     grid.display_grid()
-            #     answer_good = False
-            #     while not answer_good:
-            #         # Get player input
-            #         choice = input('Please select a box').lower().strip()
-            #         print(choice)
-            #         if len(choice) == 2:
-            #             if choice[0] not in alpha or choice[1] not in numberic:
-            #                 answer_good = False
-            #                 print('Invalid Input: only a,b,c and 0, 1, 2')
-            #             else:
-            #                 answer_good = True
-            #         elif len(choice) < 2:
-            #             answer_good = False
-            #             print('To Short: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
-            #         elif len(choice) > 2:
-            #             answer_good = False
-            #             print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
-            #     print(choice)
-            #     player2.pos_selection = choice
-            #
-            #     if grid.pos_available(player2.pos_selection):
-            #         grid.place_pawn(player2.pos_selection, player2.pawn)
-            #         if grid.calculate_win(player2.pawn):
-            #             player2.winner = True
-            #             grid.winner = 'Player 2'
-            #             game_on = False
-            #         else:
-            #             picks += 1
-            #             # return to main loop
-
-
 
 
         #   Exit messages
