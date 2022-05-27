@@ -189,6 +189,20 @@ def main():
         def show_winner(self):
             print(f'Winner: {self.winner}')
 
+        def get_input(self, choice):
+            if len(choice) == 2:
+                if choice[0] not in alpha or choice[1] not in numberic:
+                    print('Invalid Input: only a,b,c and 0, 1, 2')
+                    return False
+                else:
+                    return True
+            elif len(choice) < 2:
+                print('To Short: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
+                return False
+            elif len(choice) > 2:
+                print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
+                return False
+
     class Player:
         def __init__(self, name):
             self.name = name
@@ -216,7 +230,6 @@ def main():
 
         # Initialize Grid
         grid = Grid()
-
         # Initialize Players
         player1 = Player('player1')
         player1.pawn = 'X'
@@ -224,33 +237,26 @@ def main():
         player2.pawn = 'O'
 
         # Welcome message
-        print('Welcome to TIC TAC TOE')
+        print('                     TIC TAC TOE\n')
+        print('How to play:\nSelect a box using its Column letter and row number')
+        print('Columns: a,b,c Rows: 1, 2, 3\n')
         while game_on and picks < 9:
             active_player = player1 if picks % 2 == 0 else player2
 
+            # Game View
             print('Picks:', picks)
-            print(f'{active_player.name}')
-
-
+            print(f'Turn: {active_player.name}')
             grid.display_grid()
+
             answer_good = False
-
             while not answer_good:
-                # Get player input
-                choice = input('Please select a box').lower().strip()
-                if len(choice) == 2:
-                    if choice[0] not in alpha or choice[1] not in numberic:
-                        answer_good = False
-                        print('Invalid Input: only a,b,c and 0, 1, 2')
-                    else:
-                        answer_good = True
-                elif len(choice) < 2:
-                    answer_good = False
-                    print('To Short: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
-                elif len(choice) > 2:
-                    answer_good = False
-                    print('To Long: Choice must me 2 Characters long\n Using only a,b,c and 1,2,3')
 
+                # Get input
+                choice = input('Please select a box !').lower().strip()
+                # Evaluate Answer
+                answer_good = grid.get_input(choice)
+
+            # Assign User Choice to class
             active_player.pos_selection = choice
 
             # Check if position available
@@ -270,18 +276,14 @@ def main():
                     continue
                     # return to main loop
 
-
-        #   Exit messages
+        # Exit Clean up
         grid.display_grid()
         grid.show_winner()
         picks = 0
-
         play_again = input('Would you like to play again ? y/n').lower()
         if play_again == 'n':
             game_menu_on = False
             print('Thank you for playing\n Goodbye')
-
-
         else:
             game_on = True
             game_menu_on = True
