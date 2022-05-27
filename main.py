@@ -1,5 +1,4 @@
 def main():
-
     class Grid:
         #   Class Attributes
         #   All grids will have the same margin and divide
@@ -18,6 +17,13 @@ def main():
                 'a2': '  -  ', 'b2': '|  -  |', 'c2': '  -  '
             }
             self.winner = None
+
+            self.art = """
+                         _______       ______           ______           
+                        /_  __(_)___  /_  __/__ _____  /_  __/__  ___    
+                         / / / / __/   / / / _ `/ __/   / / / _ \/ -_)   
+                        /_/ /_/\__/   /_/  \_,_/\__/   /_/  \___/\__/                                      
+            """
 
         # Instance Method
         def display_grid(self):
@@ -211,13 +217,11 @@ def main():
             self.position_selection = None
             self.winner = None
 
-
         def activate(self):
             self.active = True
 
         def deactivate(self):
             self.active = False
-
 
     alpha = ['a', 'b', 'c']
     numberic = ['0', '1', '2']
@@ -237,7 +241,8 @@ def main():
         player2.pawn = 'O'
 
         # Welcome message
-        print('                     TIC TAC TOE\n')
+        # print('                     TIC TAC TOE\n')
+        print(f'{grid.art}')
         print('How to play:\nSelect a box using its Column letter and row number')
         print('Columns: a,b,c Rows: 1, 2, 3\n')
         while game_on and picks < 9:
@@ -250,7 +255,6 @@ def main():
 
             answer_good = False
             while not answer_good:
-
                 # Get input
                 choice = input('Please select a box !').lower().strip()
                 # Evaluate Answer
@@ -287,7 +291,6 @@ def main():
         else:
             game_on = True
             game_menu_on = True
-
 
 
 if __name__ == "__main__":
